@@ -1,56 +1,243 @@
-# Telecom Customer Churn Prediction using Machine Learning
+#  Telecom Customer Churn Prediction using Machine Learning
 
-An end-to-end Machine Learning pipeline and real-time interactive dashboard to predict telecom customer churn. The project contains a model training suite comparing multiple algorithms and a modern, glassmorphic dark-mode web application showcasing prescriptive customer retention actions.
+##  Project Overview
 
-## Project Architecture
+Telecom companies lose a significant amount of revenue when customers discontinue their services. This project develops an end-to-end Machine Learning solution to predict customer churn using customer demographics, account details, and service usage information.
+
+The project includes data preprocessing, exploratory data analysis (EDA), feature engineering, model training, model evaluation, and a Flask-based web application that allows users to predict customer churn through an interactive interface.
+
+---
+
+##  Features
+
+- Data preprocessing and cleaning
+- Exploratory Data Analysis (EDA)
+- Feature engineering
+- Training multiple Machine Learning models
+- Model evaluation and comparison
+- Saving the best trained model
+- Flask-based prediction API
+- Interactive web interface for predictions
+
+---
+
+##  Tech Stack
+
+### Programming Language
+- Python
+
+### Machine Learning Libraries
+- Scikit-learn
+- Pandas
+- NumPy
+- Joblib
+
+### Visualization
+- Matplotlib
+- Seaborn
+
+### Web Technologies
+- Flask
+- HTML
+- CSS
+- JavaScript
+
+### Development Tools
+- Jupyter Notebook
+- VS Code
+- Git
+- GitHub
+
+---
+
+##  Project Structure
 
 ```
 TelecomChurnPrediction/
-├── Telco-Customer-Churn.csv       # Dataset downloaded from IBM/Kaggle
-├── telecom_customer_churn.ipynb   # Improved Jupyter Notebook with comparative ML modeling
-├── train.py                       # Python script to train and save the best model
-├── churn_model_assets.joblib      # Serialized ML model and scaling pipeline assets
-├── app.py                         # Flask prediction server & API endpoint
-├── index.html                     # Premium dark-mode glassmorphic dashboard
-├── styles.css                     # Customized neon CSS design
-├── script.js                      # Dynamic gauge transitions & recommendation engine
-└── requirements.txt               # Dependency checklist
+│── Telco-Customer-Churn.csv        # Dataset
+│── telecom_customer_churn.ipynb    # EDA and model development
+│── train.py                        # Model training script
+│── app.py                          # Flask application
+│── test_api.py                     # API testing script
+│── churn_model_assets.joblib       # Saved model and preprocessing pipeline
+│── index.html                      # Frontend
+│── styles.css                      # Styling
+│── script.js                       # Frontend logic
+│── requirements.txt                # Project dependencies
+│── README.md
 ```
 
-## Setup & Running the Project
+---
 
-Ensure you have your environment libraries installed:
+##  Dataset
+
+The dataset contains telecom customer information, including:
+
+- Customer demographics
+- Contract details
+- Internet services
+- Payment information
+- Monthly charges
+- Total charges
+- Tenure
+- Churn status
+
+Target Variable:
+
+```
+Churn
+```
+
+---
+
+##  Machine Learning Workflow
+
+The project follows these steps:
+
+1. Load the dataset
+2. Clean missing values
+3. Perform Exploratory Data Analysis (EDA)
+4. Encode categorical variables
+5. Feature Engineering
+6. Split the dataset into training and testing sets
+7. Train Machine Learning models
+8. Evaluate model performance
+9. Save the best model
+10. Deploy using Flask
+
+---
+
+##  Models Used
+
+The project compares multiple Machine Learning algorithms, such as:
+
+- Logistic Regression
+- Decision Tree
+- Random Forest
+- Support Vector Machine (SVM)
+- K-Nearest Neighbors (KNN)
+- XGBoost (if used)
+
+The best-performing model is saved for deployment.
+
+---
+
+##  Model Evaluation Metrics
+
+The trained models are evaluated using:
+
+- Accuracy
+- Precision
+- Recall
+- F1 Score
+- ROC-AUC Score
+- Confusion Matrix
+
+---
+
+##  Installation
+
+Clone the repository
+
+```bash
+git clone https://github.com/Bhoomikaberi/Telecom-Customer-Churn-Prediction.git
+```
+
+Move into the project directory
+
+```bash
+cd Telecom-Customer-Churn-Prediction
+```
+
+Install dependencies
+
 ```bash
 pip install -r requirements.txt
 ```
 
-### 1. The Jupyter Notebook
-Open the Jupyter Notebook:
-- [telecom_customer_churn.ipynb](file:///Users/bhoomikaberi/.gemini/antigravity-ide/scratch/TelecomChurnPrediction/telecom_customer_churn.ipynb)
+---
 
-In this notebook, we:
-- Corrected the `pandas` file loading to read the dataset locally (`Telco-Customer-Churn.csv`).
-- Engineered the `AvgMonthlyCharge` indicator.
-- Conducted comparative training across **Random Forest**, **HistGradientBoosting**, and **Logistic Regression**.
-- Analyzed feature importance rankings showing that **Contract Terms**, **Tenure**, and **Internet Service (Fiber Optic)** are major drivers of churn risk.
+##  Run the Project
 
-### 2. Interactive Web Dashboard
-Run the Flask prediction backend server:
+Start the Flask server
+
 ```bash
-python3 app.py
+python app.py
 ```
 
-This will spin up a server on `http://localhost:5001`. Open your browser and navigate to:
-[http://localhost:5001](http://localhost:5001)
+Open your browser and visit
 
-#### Dashboard Key Features:
-- **Demographics, Services, & Billing Forms**: Input fields for customer options.
-- **Dynamic Circular Gauge**: Instantly displays the calculated churn probability.
-- **Color-Coded Badges**: Low Risk (Green), Medium Risk (Yellow), High Risk (Red).
-- **Stabilizers & Risk Accelerators Diagnostics**: Lists custom diagnostic metrics highlighting what helps or hurts customer retention.
-- **Prescriptive Recommendation Engine**: Recommends action plans (e.g., auto-pay incentives, support bundlings, contract upgrades) tailored to input values.
+```
+http://127.0.0.1:5000
+```
 
-## Performance Analysis
-- **Logistic Regression (Best Overall AUC)**: Accuracy: **74%**, ROC-AUC: **84%** (provides high sensitivity/recall for catching churners).
-- **HistGradientBoosting**: Accuracy: **75.5%**, ROC-AUC: **83.2%**.
-- **Random Forest**: Accuracy: **79%**, ROC-AUC: **82.5%**.
+---
+
+##  Application Workflow
+
+1. Enter customer details
+2. Click **Predict**
+3. The trained model analyzes the customer information
+4. The application predicts whether the customer is likely to churn
+5. The prediction result is displayed on the screen
+
+---
+
+##  Important Files
+
+| File | Description |
+|------|-------------|
+| `app.py` | Flask application |
+| `train.py` | Model training script |
+| `telecom_customer_churn.ipynb` | Data analysis and model development |
+| `test_api.py` | API testing |
+| `requirements.txt` | Required Python packages |
+| `churn_model_assets.joblib` | Saved ML model |
+
+---
+
+## Screenshots
+
+Add screenshots of your application here.
+
+Example:
+
+```
+screenshots/
+    home.png
+    prediction.png
+```
+
+Then include them using:
+
+```md
+![Home Page](screenshots/home.png)
+
+![Prediction Result](screenshots/prediction.png)
+```
+
+---
+
+## Future Improvements
+
+- Deploy the application on Render or AWS
+- Add user authentication
+- Improve model performance
+- Integrate real-time customer data
+- Create an admin analytics dashboard
+
+---
+
+##  Author
+
+**Bhoomika Beri**
+
+Pre-Final Year Electronics & Computer Engineering Student
+
+Machine Learning | Software Development | Data Science
+
+GitHub: https://github.com/Bhoomikaberi
+
+---
+
+## ⭐ If you found this project useful, consider giving it a star!
