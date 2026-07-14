@@ -1,4 +1,4 @@
-# AetherLink: Telecom Customer Churn Prediction & Analytics Dashboard
+# Telecom Customer Churn Prediction using Machine Learning
 
 An end-to-end Machine Learning pipeline and real-time interactive dashboard to predict telecom customer churn. The project contains a model training suite comparing multiple algorithms and a modern, glassmorphic dark-mode web application showcasing prescriptive customer retention actions.
 
