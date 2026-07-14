@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Churn Prediction Dashboard</title>
+    <meta name="description" content="Predictive customer churn modeling, diagnostic risk factors, and interactive retention planning.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom Style Sheet -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="glass-bg"></div>
+    <div class="dashboard-wrapper">
+        <!-- Header -->
+        <header class="main-header">
+            <div class="header-logo">
+                <i class="fa-solid fa-satellite-dish pulse-icon"></i>
+                <div class="logo-text">
+                    <h1>CHURN PREDICTION</h1>
+                    <span>PREDICTIVE RETENTION SUITE</span>
+                </div>
+            </div>
+            <div class="header-status">
+                <div class="status-indicator online"></div>
+                <span>Engine: Active</span>
+            </div>
+        </header>
+
+        <!-- Presets Bar -->
+        <section class="presets-panel" aria-label="Quick Presets">
+            <div class="presets-title">
+                <span>Quick-Fill Profile Presets:</span>
+            </div>
+            <div class="preset-buttons">
+                <button type="button" class="preset-btn" id="preset-loyal" data-preset="loyal">
+                    <i class="fa-solid fa-crown"></i> Loyal Long-Term
+                </button>
+                <button type="button" class="preset-btn" id="preset-risk" data-preset="risk">
+                    <i class="fa-solid fa-triangle-exclamation"></i> High Risk M2M
+                </button>
+                <button type="button" class="preset-btn" id="preset-new" data-preset="new">
+                    <i class="fa-solid fa-wifi"></i> New Fiber Optic
+                </button>
+            </div>
+        </section>
+
+        <!-- Main Workspace -->
+        <main class="dashboard-grid">
+            
+            <!-- Left Panel: Input Form -->
+            <section class="panel input-panel" aria-label="Customer Profile Form">
+                <div class="panel-header-tabs">
+                    <div class="form-tabs">
+                        <button type="button" class="tab-link active" data-tab="demographics">Profile</button>
+                        <button type="button" class="tab-link" data-tab="services">Services</button>
+                        <button type="button" class="tab-link" data-tab="billing">Billing</button>
+                    </div>
+                </div>
+                
+                <form id="churn-form" class="profile-form">
+                    
+                    <!-- Tab 1: Demographics -->
+                    <div class="tab-content active" id="tab-demographics">
+                        <div class="form-section">
+                            <h3 class="section-title">Demographics & Family</h3>
+                            <div class="form-grid">
+                                <div class="input-group">
+                                    <label>Gender</label>
+                                    <div class="segmented-control">
+                                        <input type="radio" id="gender-male" name="gender" value="Male" checked>
+                                        <label for="gender-male">Male</label>
+                                        <input type="radio" id="gender-female" name="gender" value="Female">
+                                        <label for="gender-female">Female</label>
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label>Senior Citizen</label>
+                                    <div class="segmented-control">
+                                        <input type="radio" id="senior-no" name="SeniorCitizen" value="0" checked>
+                                        <label for="senior-no">No</label>
+                                        <input type="radio" id="senior-yes" name="SeniorCitizen" value="1">
+                                        <label for="senior-yes">Yes</label>
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label>Partner / Married</label>
+                                    <div class="segmented-control">
+                                        <input type="radio" id="partner-no" name="Partner" value="No" checked>
+                                        <label for="partner-no">No</label>
+                                        <input type="radio" id="partner-yes" name="Partner" value="Yes">
+                                        <label for="partner-yes">Yes</label>
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label>Dependents</label>
+                                    <div class="segmented-control">
+                                        <input type="radio" id="dependents-no" name="Dependents" value="No" checked>
+                                        <label for="dependents-no">No</label>
+                                        <input type="radio" id="dependents-yes" name="Dependents" value="Yes">
+                                        <label for="dependents-yes">Yes</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab 2: Core Services -->
+                    <div class="tab-content" id="tab-services">
+                        <div class="form-section">
+                            <h3 class="section-title">Core Subscriptions</h3>
+                            <div class="form-grid">
+                                <div class="input-group">
+                                    <label>Phone Line</label>
+                                    <div class="segmented-control">
+                                        <input type="radio" id="phone-no" name="PhoneService" value="No">
+                                        <label for="phone-no">No</label>
+                                        <input type="radio" id="phone-yes" name="PhoneService" value="Yes" checked>
+                                        <label for="phone-yes">Yes</label>
+                                    </div>
+                                </div>
+                                <div class="input-group" id="group-MultipleLines">
+                                    <label>Multiple Lines</label>
+                                    <div class="segmented-control vertical" id="control-MultipleLines">
+                                        <input type="radio" id="multilines-no" name="MultipleLines" value="No" checked>
+                                        <label for="multilines-no">No</label>
+                                        <input type="radio" id="multilines-yes" name="MultipleLines" value="Yes">
+                                        <label for="multilines-yes">Yes</label>
+                                        <input type="radio" id="multilines-nophone" name="MultipleLines" value="No phone service">
+                                        <label for="multilines-nophone">No Phone</label>
+                                    </div>
+                                    <span class="field-lock-hint">Locked: no phone line active</span>
+                                </div>
+                                <div class="input-group full-width">
+                                    <label>Internet Service</label>
+                                    <div class="segmented-control">
+                                        <input type="radio" id="internet-fiber" name="InternetService" value="Fiber optic" checked>
+                                        <label for="internet-fiber">Fiber</label>
+                                        <input type="radio" id="internet-dsl" name="InternetService" value="DSL">
+                                        <label for="internet-dsl">DSL</label>
+                                        <input type="radio" id="internet-none" name="InternetService" value="No">
+                                        <label for="internet-none">None</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-section" style="margin-top: 15px;">
+                            <h3 class="section-title">Add-on Options</h3>
+                            <div class="form-grid">
+                                <div class="input-group" id="group-OnlineSecurity">
+                                    <label>Online Security</label>
+                                    <div class="segmented-control" id="control-OnlineSecurity">
+                                        <input type="radio" id="security-no" name="OnlineSecurity" value="No" checked>
+                                        <label for="security-no">No</label>
+                                        <input type="radio" id="security-yes" name="OnlineSecurity" value="Yes">
+                                        <label for="security-yes">Yes</label>
+                                    </div>
+                                    <span class="field-lock-hint">Locked: no internet service</span>
+                                </div>
+                                <div class="input-group" id="group-OnlineBackup">
+                                    <label>Online Backup</label>
+                                    <div class="segmented-control" id="control-OnlineBackup">
+                                        <input type="radio" id="backup-no" name="OnlineBackup" value="No" checked>
+                                        <label for="backup-no">No</label>
+                                        <input type="radio" id="backup-yes" name="OnlineBackup" value="Yes">
+                                        <label for="backup-yes">Yes</label>
+                                    </div>
+                                    <span class="field-lock-hint">Locked: no internet service</span>
+                                </div>
+                                <div class="input-group" id="group-DeviceProtection">
+                                    <label>Device Protection</label>
+                                    <div class="segmented-control" id="control-DeviceProtection">
+                                        <input type="radio" id="protection-no" name="DeviceProtection" value="No" checked>
+                                        <label for="protection-no">No</label>
+                                        <input type="radio" id="protection-yes" name="DeviceProtection" value="Yes">
+                                        <label for="protection-yes">Yes</label>
+                                    </div>
+                                    <span class="field-lock-hint">Locked: no internet service</span>
+                                </div>
+                                <div class="input-group" id="group-TechSupport">
+                                    <label>Tech Support</label>
+                                    <div class="segmented-control" id="control-TechSupport">
+                                        <input type="radio" id="tech-no" name="TechSupport" value="No" checked>
+                                        <label for="tech-no">No</label>
+                                        <input type="radio" id="tech-yes" name="TechSupport" value="Yes">
+                                        <label for="tech-yes">Yes</label>
+                                    </div>
+                                    <span class="field-lock-hint">Locked: no internet service</span>
+                                </div>
+                                <div class="input-group" id="group-StreamingTV">
+                                    <label>Streaming TV</label>
+                                    <div class="segmented-control" id="control-StreamingTV">
+                                        <input type="radio" id="streamtv-no" name="StreamingTV" value="No" checked>
+                                        <label for="streamtv-no">No</label>
+                                        <input type="radio" id="streamtv-yes" name="StreamingTV" value="Yes">
+                                        <label for="streamtv-yes">Yes</label>
+                                    </div>
+                                    <span class="field-lock-hint">Locked: no internet service</span>
+                                </div>
+                                <div class="input-group" id="group-StreamingMovies">
+                                    <label>Streaming Movies</label>
+                                    <div class="segmented-control" id="control-StreamingMovies">
+                                        <input type="radio" id="movies-no" name="StreamingMovies" value="No" checked>
+                                        <label for="movies-no">No</label>
+                                        <input type="radio" id="movies-yes" name="StreamingMovies" value="Yes">
+                                        <label for="movies-yes">Yes</label>
+                                    </div>
+                                    <span class="field-lock-hint">Locked: no internet service</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab 3: Billing & Terms -->
+                    <div class="tab-content" id="tab-billing">
+                        <div class="form-section">
+                            <h3 class="section-title">Contract Setup</h3>
+                            <div class="input-group full-width">
+                                <label>Agreement Terms</label>
+                                <div class="segmented-control">
+                                    <input type="radio" id="contract-m2m" name="Contract" value="Month-to-month" checked>
+                                    <label for="contract-m2m">Month-to-Month</label>
+                                    <input type="radio" id="contract-1y" name="Contract" value="One year">
+                                    <label for="contract-1y">1 Year</label>
+                                    <input type="radio" id="contract-2y" name="Contract" value="Two year">
+                                    <label for="contract-2y">2 Years</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-section" style="margin-top: 15px;">
+                            <h3 class="section-title">Payments & Billing</h3>
+                            <div class="form-grid">
+                                <div class="input-group">
+                                    <label>Paperless Billing</label>
+                                    <div class="segmented-control">
+                                        <input type="radio" id="paperless-no" name="PaperlessBilling" value="No">
+                                        <label for="paperless-no">No</label>
+                                        <input type="radio" id="paperless-yes" name="PaperlessBilling" value="Yes" checked>
+                                        <label for="paperless-yes">Yes</label>
+                                    </div>
+                                </div>
+                                <div class="input-group full-width">
+                                    <label>Payment Method</label>
+                                    <div class="payment-grid">
+                                        <input type="radio" id="pay-echeck" name="PaymentMethod" value="Electronic check" checked>
+                                        <label for="pay-echeck" class="payment-card">
+                                            <i class="fa-solid fa-receipt"></i>
+                                            <span>Electronic Check</span>
+                                        </label>
+                                        
+                                        <input type="radio" id="pay-mcheck" name="PaymentMethod" value="Mailed check">
+                                        <label for="pay-mcheck" class="payment-card">
+                                            <i class="fa-solid fa-envelope-open-text"></i>
+                                            <span>Mailed Check</span>
+                                        </label>
+                                        
+                                        <input type="radio" id="pay-bank" name="PaymentMethod" value="Bank transfer (automatic)">
+                                        <label for="pay-bank" class="payment-card">
+                                            <i class="fa-solid fa-building-columns"></i>
+                                            <span>Bank Transfer</span>
+                                        </label>
+                                        
+                                        <input type="radio" id="pay-card" name="PaymentMethod" value="Credit card (automatic)">
+                                        <label for="pay-card" class="payment-card">
+                                            <i class="fa-solid fa-credit-card"></i>
+                                            <span>Credit Card</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-section" style="margin-top: 15px;">
+                            <h3 class="section-title">Charges & Timeline</h3>
+                            
+                            <div class="slider-group">
+                                <div class="slider-header">
+                                    <label for="tenure">Customer Tenure: <span id="tenure-val">12</span> months</label>
+                                </div>
+                                <input type="range" id="tenure" name="tenure" min="0" max="72" value="12" class="range-slider">
+                            </div>
+
+                            <div class="form-grid" style="margin-top: 15px;">
+                                <div class="input-group">
+                                    <label for="MonthlyCharges">Monthly Charge ($)</label>
+                                    <input type="number" id="MonthlyCharges" name="MonthlyCharges" min="10" max="150" step="0.01" value="65.00" required>
+                                </div>
+                                <div class="input-group">
+                                    <label for="TotalCharges">Total Charge ($)</label>
+                                    <input type="number" id="TotalCharges" name="TotalCharges" min="0" max="10000" step="0.01" value="780.00" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="navigation-buttons">
+                        <button type="button" class="nav-btn prev-btn hidden" id="prev-btn">
+                            <i class="fa-solid fa-arrow-left"></i> Previous
+                        </button>
+                        <button type="button" class="nav-btn next-btn" id="next-btn">
+                            Next <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                        <button type="submit" class="submit-btn hidden" id="submit-btn">
+                            <span>Evaluate Churn Risk</span>
+                            <i class="fa-solid fa-shield-check"></i>
+                        </button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Right Panel: Results & Prediction Analytics -->
+            <section class="panel result-panel" aria-label="Risk Prediction Analytics">
+                <div class="panel-header">
+                    <i class="fa-solid fa-brain-circuit"></i>
+                    <h2>Risk Diagnostics</h2>
+                </div>
+                
+                <div class="result-error hidden" id="error-box">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                    <div>
+                        <h4>Evaluation Failed</h4>
+                        <p id="error-message">Something went wrong.</p>
+                    </div>
+                    <button type="button" id="error-dismiss" aria-label="Dismiss">&times;</button>
+                </div>
+
+                <div class="result-placeholder" id="placeholder-box">
+                    <div class="placeholder-content">
+                        <i class="fa-solid fa-microchip-ai brain-icon"></i>
+                        <p>Complete the profile steps and run the evaluation to generate machine learning diagnostics.</p>
+                    </div>
+                </div>
+
+                <div class="result-container hidden" id="result-box">
+                    <!-- Gauge and Risk Title -->
+                    <div class="risk-gauge-container">
+                        <div class="radial-gauge">
+                            <svg class="radial-svg" viewBox="0 0 100 100">
+                                <circle class="gauge-bg" cx="50" cy="50" r="45"></circle>
+                                <circle class="gauge-fill" id="gauge-fill" cx="50" cy="50" r="45" stroke-dasharray="283" stroke-dashoffset="283"></circle>
+                            </svg>
+                            <div class="gauge-text">
+                                <span class="percentage" id="risk-percent">0%</span>
+                                <span class="label">Churn Risk</span>
+                            </div>
+                        </div>
+                        
+                        <div class="risk-badge-box">
+                            <span class="badge" id="risk-badge">Low Risk</span>
+                            <p class="model-info" id="model-name-text">AI Model: Logistic Regression</p>
+                        </div>
+                    </div>
+
+                    <!-- Risk Breakdown Cards -->
+                    <div class="metrics-grid">
+                        <div class="metric-card positive">
+                            <div class="metric-icon"><i class="fa-solid fa-shield-check"></i></div>
+                            <div class="metric-details">
+                                <h4>Stabilizing Factors</h4>
+                                <ul id="pos-factors">
+                                    <!-- Dynamic content -->
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="metric-card negative">
+                            <div class="metric-icon"><i class="fa-solid fa-shield-exclamation"></i></div>
+                            <div class="metric-details">
+                                <h4>Risk Accelerators</h4>
+                                <ul id="neg-factors">
+                                    <!-- Dynamic content -->
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Retention Actions Recommendations -->
+                    <div class="retention-recommendations">
+                        <h3><i class="fa-solid fa-sparkles"></i> AI Retention Recommendation</h3>
+                        <div class="recommendations-list" id="action-list">
+                            <!-- Populated dynamically by script -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <!-- Summary Stats Footer -->
+        <footer class="dashboard-footer">
+            <p>Developed with precision for Telecom Customer Churn Prediction • Model Accuracy: 74% • ROC-AUC: 84%</p>
+        </footer>
+    </div>
+
+    <!-- Script File -->
+    <script src="script.js"></script>
+</body>
+</html>
